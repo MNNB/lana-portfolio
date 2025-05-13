@@ -7,7 +7,7 @@ export interface Props {
 }
 
 const {
-  headline = "LET'S BUILD TOGETHER AND TURN YOUR VISION TO LIFE.",
+  headline = "LET'S BUILD TOGETHER<br />AND TURN<br />YOUR VISION TO LIFE.",
   ctaText = "Get in touch",
   ctaLink = "/contact", // Assuming a contact page will exist
 } = Astro.props;
@@ -15,24 +15,37 @@ const {
 
 <section class="cta-banner-section">
   <div class="container">
-    <h2 class="cta-banner-headline">{headline}</h2>
-    {ctaText && ctaLink && (
-      <a href={ctaLink} class="cta-button cta-banner-button">
-        {ctaText}
-      </a>
-    )}
+    <h2 class="cta-banner-headline" set:html={headline} />
+    {
+      ctaText && ctaLink && (
+        <a href={ctaLink} class="cta-button cta-banner-button">
+          {ctaText}
+        </a>
+      )
+    }
   </div>
 </section>
 
 <style>
   .cta-banner-section {
     padding: calc(var(--spacing-unit, 8px) * 6) 0; /* Adjust padding as needed */
-    background-color: var(--cta-banner-bg, var(--background-color, #fff)); /* Or a subtle different bg */
+    background-color: var(
+      --cta-banner-bg,
+      var(--background-color, #fff)
+    ); /* Or a subtle different bg */
     text-align: center;
+    max-width: 60vw;
+    margin: auto;
   }
 
   .cta-banner-headline {
-    font-family: var(--font-family-heading, "Helvetica Neue", Helvetica, Arial, sans-serif);
+    font-family: var(
+      --font-family-heading,
+      "Helvetica Neue",
+      Helvetica,
+      Arial,
+      sans-serif
+    );
     font-size: clamp(2rem, 4.5vw, 6rem); /* Large, impactful text */
     font-weight: 400; /* Matches Hero's headline weight */
     line-height: 1.2;
@@ -52,11 +65,16 @@ const {
     text-decoration: none;
     font-weight: 600; /* Placeholder for "65 Medium" */
     font-size: 1rem; /* 16px */
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease;
   }
 
   .cta-banner-button.cta-button:hover {
-    background-color: var(--text-color, #000000); /* Black background on hover */
+    background-color: var(
+      --text-color,
+      #000000
+    ); /* Black background on hover */
     color: var(--background-color, #ffffff); /* White text on hover */
   }
 </style>

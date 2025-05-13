@@ -1,64 +1,67 @@
 ---
 // src/pages/about.astro
-import Layout from '../layouts/Layout.astro';
-import AboutIntroSection from '../components/AboutIntroSection.astro';
-import SkillsSection from '../components/SkillsSection.astro';
-import TimelineSection from '../components/TimelineSection.astro';
-import type { TimelineItem } from '../components/TimelineSection.astro';
-import ReferencesSection from '../components/ReferencesSection.astro';
+import Layout from "../layouts/Layout.astro";
+import AboutIntroSection from "../components/AboutIntroSection.astro";
+import TimelineSection from "../components/TimelineSection.astro";
+import type { TimelineItem } from "../components/TimelineSection.astro";
 
 const pageTitle = "About | Graphic Designer"; // Figma shows "ABOUT" as the main title
-const pageDescription = "Learn more about my journey, skills, and design philosophy as a professional graphic designer.";
+const pageDescription =
+  "Learn more about my journey, skills, and design philosophy as a professional graphic designer.";
 
 const experienceItems: TimelineItem[] = [
   {
+    // Mis en premier selon le design
     dateRange: "Oct 2020 - Present",
     title: "Freelance Senior Art Director",
     institution: "Paris",
-    description: "Working with various clients on branding, packaging, and design projects."
+    description:
+      "Working with various clients on branding, packaging, and design projects.",
   },
   {
+    // Mis en second selon le design
     dateRange: "Mai 2024 - January 2025",
     title: "Freelance photo retoucher",
     institution: "Moet Hennessy, Paris",
-    description: "Photo retouching for luxury brands."
+    description: "Photo retouching for luxury brands.",
   },
   {
     dateRange: "Mai 2022 - Aug 2022",
     title: "Packaging Art Director",
     institution: "Surf Design, Paris",
-    description: "Specialized in packaging design for various clients."
+    description: "Specialized in packaging design for various clients.",
   },
   {
     dateRange: "Jan 2019 - April 2020",
     title: "Senior Art Director",
     institution: "Motor Brand Design, Melbourne",
-    description: "Led design projects for Australian and international clients."
+    description:
+      "Led design projects for Australian and international clients.",
   },
   {
     dateRange: "July 2017 - June 2018",
     title: "Art Director",
     institution: "Hotshop, Paris",
-    description: "Worked on branding and design projects for various clients."
+    description: "Worked on branding and design projects for various clients.",
   },
   {
     dateRange: "Jan 2016 - July 2017",
     title: "Freelance Art Director",
     institution: "Paris",
-    description: "Independent design work for various clients."
+    description: "Independent design work for various clients.",
   },
   {
     dateRange: "Dec 2012 - Nov 2015",
     title: "Senior Designer",
     institution: "NeochaEDGE, Shanghai",
-    description: "Design work for Chinese and international clients."
+    description: "Design work for Chinese and international clients.",
   },
   {
     dateRange: "August 2011 - Dec 2011",
     title: "Intern Junior Art Director",
     institution: "Adoc design, Paris",
-    description: "Internship focusing on design fundamentals and client work."
-  }
+    description: "Internship focusing on design fundamentals and client work.",
+  },
 ];
 
 const educationItems: TimelineItem[] = [
@@ -66,50 +69,109 @@ const educationItems: TimelineItem[] = [
     dateRange: "Mai 2024",
     title: "Professional training UI designer",
     institution: "Labtop / Paris",
-    description: "Specialized training in UI design principles and practices."
+    description: "Specialized training in UI design principles and practices.",
   },
   {
     dateRange: "Nov 2022 - January 2023",
     title: "Professional training Motion Graphic",
     institution: "Les Gobelins / Paris",
-    description: "Advanced training in motion graphics and animation."
+    description: "Advanced training in motion graphics and animation.",
   },
   {
     dateRange: "2012 July",
     title: "Visual communication",
     institution: "Intuit Lab / Master's Degree / Paris",
-    description: "Master's degree in visual communication."
+    description: "Master's degree in visual communication.",
   },
   {
     dateRange: "2011 July",
     title: "Visual communication",
     institution: "ECV / Bac+3 / Paris",
-    description: "Bachelor's level education in visual communication."
+    description: "Bachelor's level education in visual communication.",
   },
   {
     dateRange: "2007 July",
     title: "Fine arts / Illustration",
     institution: "Beihang University / Bachelor Degree / Beijing",
-    description: "Bachelor's degree focusing on fine arts and illustration."
-  }
+    description: "Bachelor's degree focusing on fine arts and illustration.",
+  },
 ];
 ---
 
 <Layout title={pageTitle} description={pageDescription}>
   <div class="page-header-container container">
-    <h1 class="page-main-title">ABOUT</h1>
+    <h1 class="page-main-title">/ABOUT</h1>
   </div>
 
   <AboutIntroSection />
 
-  <SkillsSection />
+  <div class="about-details-grid container">
+    <div class="experience-column">
+      <TimelineSection sectionTitle="Experiences" items={experienceItems} />
+    </div>
+    <div class="education-tools-column">
+      <TimelineSection
+        sectionTitle="Education / Professional Training"
+        items={educationItems}
+      />
+      <div class="my-design-tools">
+        <h3 class="section-subtitle">My design tools</h3>
+        <ul>
+          <li>Photoshop</li>
+          <li>Illustrator</li>
+          <li>Indesign</li>
+          <li>After effect</li>
+          <li>Figma</li>
+          <li>Davinci</li>
+        </ul>
+      </div>
+    </div>
+    <div class="references-column">
+      <h3 class="section-subtitle">Reference</h3>
+      <ul>
+        <li>Gap</li>
+        <li>Adidas</li>
+        <li>Lee</li>
+        <li>Nestlé</li>
+        <li>Monoprix</li>
+        <li>Carrefour</li>
+        <li>Lidl / Aldi</li>
+        <li>Intermarché</li>
+        <li>Auchan</li>
+        <li>Brand in China</li>
+        <li>Beautiful Scenery</li>
+        <li>Lululemon</li>
+        <li>Aldi</li>
+        <li>Foodbowl</li>
+      </ul>
+    </div>
+  </div>
 
-  <TimelineSection sectionTitle="Experiences" items={experienceItems} />
-  <TimelineSection sectionTitle="Education / Professional Training" items={educationItems} />
+  {
+    /* L'ancien ReferencesSection est supprimé car son contenu est maintenant dans la grille */
+  }
 
-  <ReferencesSection />
-
-  {/* Remove the final placeholder list as all About Page sections are now added */}
+  <div class="about-footer-contact container">
+    <p>
+      If you're interested in learning more about my services, discussing
+      collaboration or a potential project, or just want to chat about design
+      and creativity, I'm here to listen.
+    </p>
+    <div class="contact-links">
+      <a
+        href="https://www.linkedin.com"
+        target="_blank"
+        rel="noopener noreferrer">Linkedin</a
+      >
+      <a
+        href="https://www.instagram.com"
+        target="_blank"
+        rel="noopener noreferrer">Instagram</a
+      >
+      <span>hu.lanyan@gmail.com</span>
+      <span>+33 6 5683 4241</span>
+    </div>
+  </div>
 </Layout>
 
 <style>
@@ -135,7 +197,95 @@ const educationItems: TimelineItem[] = [
     margin-bottom: 0.5rem;
   }
   .container ul {
-    margin-left: 1.5rem;
+    margin-left: 1.5rem; /* Conservé pour le style de liste par défaut si nécessaire ailleurs */
     margin-bottom: 1rem;
+  }
+
+  .about-details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: calc(var(--spacing-unit, 8px) * 4); /* 32px gap */
+    margin-top: calc(var(--spacing-unit, 8px) * 6);
+    margin-bottom: calc(var(--spacing-unit, 8px) * 6);
+  }
+
+  @media (min-width: 768px) {
+    .about-details-grid {
+      grid-template-columns: 1fr 1fr 0.8fr; /* Ajustez les fractions pour la largeur des colonnes */
+      gap: calc(var(--spacing-unit, 8px) * 5); /* 40px gap */
+    }
+  }
+
+  .section-subtitle {
+    /* Style pour les titres comme "My design tools" et "Reference" */
+    font-family: var(--font-family-body); /* Ou heading, selon le design */
+    font-size: 1.2rem; /* Ajustez selon le design */
+    font-weight: bold;
+    color: var(--text-color);
+    margin-bottom: calc(var(--spacing-unit, 8px) * 2); /* 16px */
+    text-transform: capitalize; /* "Reference" est capitalisé dans le design */
+  }
+
+  .my-design-tools,
+  .references-column {
+    padding-top: calc(
+      var(--spacing-unit, 8px) * 0
+    ); /* Ajustez si TimelineSection a un padding-top différent */
+  }
+
+  .my-design-tools ul,
+  .references-column ul {
+    list-style: none;
+    padding-left: 0;
+    margin-left: 0; /* Annule le margin-left global pour les listes dans ce contexte */
+  }
+
+  .my-design-tools ul li,
+  .references-column ul li {
+    font-family: var(--font-family-body);
+    font-size: var(--font-size-small); /* Ou une taille spécifique */
+    color: var(--text-color-offset); /* Ou var(--text-color) */
+    margin-bottom: calc(var(--spacing-unit, 8px) * 0.5); /* 4px */
+    line-height: 1.6;
+  }
+
+  .my-design-tools {
+    margin-top: calc(
+      var(--spacing-unit, 8px) * 4
+    ); /* Espace entre Education et My design tools */
+  }
+
+  .about-footer-contact {
+    border-top: 1px solid var(--border-color, #e0e0e0); /* Ligne de séparation comme dans le design */
+    padding-top: calc(var(--spacing-unit, 8px) * 4);
+    padding-bottom: calc(var(--spacing-unit, 8px) * 4);
+    margin-top: calc(var(--spacing-unit, 8px) * 6);
+    text-align: left; /* Le texte est aligné à gauche dans le design */
+  }
+
+  .about-footer-contact p {
+    font-family: var(--font-family-body);
+    font-size: var(--font-size-base);
+    color: var(--text-color);
+    margin-bottom: calc(var(--spacing-unit, 8px) * 3);
+    max-width: 60ch; /* Limite la largeur du paragraphe pour la lisibilité */
+  }
+
+  .about-footer-contact .contact-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: calc(var(--spacing-unit, 8px) * 2) calc(var(--spacing-unit, 8px) * 4); /* Espacement vertical et horizontal */
+    font-family: var(--font-family-body);
+    font-size: var(--font-size-small);
+  }
+
+  .about-footer-contact .contact-links a,
+  .about-footer-contact .contact-links span {
+    color: var(--text-color);
+    text-decoration: none;
+  }
+
+  .about-footer-contact .contact-links a:hover {
+    text-decoration: underline;
   }
 </style>

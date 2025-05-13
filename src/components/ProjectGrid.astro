@@ -29,7 +29,7 @@ const placeholderProjects: ProjectCardProps[] = [
   {
     title: "Veuve Clicquot",
     categories: ["Photo retouching"],
-    thumbnailUrl: "/placeholders/project-thumb-400x300.png", // Ce chemin est déjà correct
+    thumbnailUrl: "/thumbnails/VCQ_F.png",
     projectUrl: "/projects/veuve-clicquot",
     aspectRatio: "1.05", // Approx from image
   },
@@ -74,7 +74,12 @@ const { projects = placeholderProjects } = Astro.props;
       projects && projects.length > 0 ? (
         <div class="project-grid">
           {projects.map((project) => (
-            <div class="project-item" data-categories={project.categories.map(c => c.toLowerCase().replace(/\s+/g, '-')).join('|')}>
+            <div
+              class="project-item"
+              data-categories={project.categories
+                .map((c) => c.toLowerCase().replace(/\s+/g, "-"))
+                .join("|")}
+            >
               <ProjectCard {...project} />
             </div>
           ))}
@@ -135,10 +140,10 @@ const { projects = placeholderProjects } = Astro.props;
   }
 
   .category-filter {
-    font-family: 'Monument Grotesk', sans-serif;
+    font-family: "Monument Grotesk", sans-serif;
     font-size: 3rem;
     text-decoration: none;
-    color: #CCCCCC;
+    color: #cccccc;
     transition: color 0.3s ease;
     line-height: 1.2;
   }
@@ -155,7 +160,7 @@ const { projects = placeholderProjects } = Astro.props;
     .category-filters {
       gap: 0;
     }
-    
+
     .category-filter {
       font-size: 36px;
     }
@@ -163,41 +168,45 @@ const { projects = placeholderProjects } = Astro.props;
 </style>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const filters = document.querySelectorAll('.category-filter');
-    const projectItems = document.querySelectorAll('.project-item');
+  document.addEventListener("DOMContentLoaded", () => {
+    const filters = document.querySelectorAll(".category-filter");
+    const projectItems = document.querySelectorAll(".project-item");
 
     function setActiveFilter(activeFilter) {
-      filters.forEach(filter => {
-        filter.classList.remove('active');
+      filters.forEach((filter) => {
+        filter.classList.remove("active");
       });
-      activeFilter.classList.add('active');
+      activeFilter.classList.add("active");
     }
 
     function filterProjects(category) {
-      const normalizedCategory = category.toLowerCase().replace(/\s+/g, '-');
-      projectItems.forEach(item => {
-        if (normalizedCategory === 'featuring') {
-          item.style.display = '';
+      const normalizedCategory = category.toLowerCase().replace(/\s+/g, "-");
+      projectItems.forEach((item) => {
+        if (normalizedCategory === "featuring") {
+          item.style.display = "";
         } else {
-          const itemCategories = item.dataset.categories.split('|');
+          const itemCategories = item.dataset.categories.split("|");
           // Check if any of the item's categories *includes* the filter category
           // This allows "packaging" to match "packaging-design"
-          const matches = itemCategories.some(itemCat => itemCat.includes(normalizedCategory));
-          item.style.display = matches ? '' : 'none';
+          const matches = itemCategories.some((itemCat) =>
+            itemCat.includes(normalizedCategory),
+          );
+          item.style.display = matches ? "" : "none";
         }
       });
     }
 
     // Initial state: "Featuring" active, all projects shown
-    const initialActiveFilter = document.querySelector('.category-filter[href="#featuring"]');
+    const initialActiveFilter = document.querySelector(
+      '.category-filter[href="#featuring"]',
+    );
     if (initialActiveFilter) {
       setActiveFilter(initialActiveFilter);
-      filterProjects('featuring');
+      filterProjects("featuring");
     }
 
-    filters.forEach(filter => {
-      filter.addEventListener('click', (e) => {
+    filters.forEach((filter) => {
+      filter.addEventListener("click", (e) => {
         e.preventDefault();
         // Extract category from href, remove #, and normalize
         const targetCategory = filter.hash.substring(1);
@@ -207,4 +216,3 @@ const { projects = placeholderProjects } = Astro.props;
     });
   });
 </script>
-

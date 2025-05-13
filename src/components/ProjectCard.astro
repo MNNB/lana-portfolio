@@ -22,31 +22,40 @@ const categoryString = categories.join(" / ");
 
 let paddingTopToUse: string;
 // Parse the aspectRatio prop (e.g., "W/H") to calculate padding-top (H/W * 100%)
-const parts = aspectRatio.split('/').map(s => parseFloat(s.trim()));
-if (parts.length === 2 && !isNaN(parts[0]) && !isNaN(parts[1]) && parts[0] > 0 && parts[1] > 0) {
+const parts = aspectRatio.split("/").map((s) => parseFloat(s.trim()));
+if (
+  parts.length === 2 &&
+  !isNaN(parts[0]) &&
+  !isNaN(parts[1]) &&
+  parts[0] > 0 &&
+  parts[1] > 0
+) {
   paddingTopToUse = (parts[1] / parts[0]) * 100 + "%";
 } else {
   // Fallback if aspectRatio prop is malformed. Uses a common 4:3 visual aspect.
   // This should ideally not be reached if the default prop value is valid.
-  console.warn(`Invalid aspect ratio format: "${aspectRatio}". Defaulting to 4:3 visual aspect (75% padding-top).`);
+  console.warn(
+    `Invalid aspect ratio format: "${aspectRatio}". Defaulting to 4:3 visual aspect (75% padding-top).`,
+  );
   paddingTopToUse = "75%";
 }
 ---
 
 <article class="project-card">
   <a href={projectUrl} class="project-card-link">
-    <div class="project-card-thumbnail" style={`padding-top: ${paddingTopToUse};`}>
-      <img
-        src={thumbnailUrl}
-        alt={`Thumbnail for ${title}`}
-        loading="lazy"
-      />
+    <div
+      class="project-card-thumbnail"
+      style={`padding-top: ${paddingTopToUse};`}
+    >
+      <img src={thumbnailUrl} alt={`Thumbnail for ${title}`} loading="lazy" />
     </div>
     <div class="project-card-content">
       <h3 class="project-card-title">{title}</h3>
-      {categories.length > 0 && (
-        <p class="project-card-categories">{categoryString}</p>
-      )}
+      {
+        categories.length > 0 && (
+          <p class="project-card-categories">{categoryString}</p>
+        )
+      }
     </div>
   </a>
 </article>
@@ -55,7 +64,9 @@ if (parts.length === 2 && !isNaN(parts[0]) && !isNaN(parts[1]) && parts[0] > 0 &
   .project-card {
     background-color: var(--card-bg-color, var(--background-color, #fff));
     /* box-shadow: 0 2px 8px rgba(0,0,0,0.05); */ /* Subtle shadow if desired */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
     overflow: hidden; /* Ensures content respects card boundaries */
   }
 
@@ -71,12 +82,18 @@ if (parts.length === 2 && !isNaN(parts[0]) && !isNaN(parts[1]) && parts[0] > 0 &
   }
 
   .project-card-thumbnail {
-    background-color: var(--placeholder-bg, #e0e0e0); /* Fallback for image area */
+    background-color: var(
+      --placeholder-bg,
+      #e0e0e0
+    ); /* Fallback for image area */
     overflow: hidden; /* Ensure image respects this container */
   }
 
   .project-card-thumbnail {
-    background-color: var(--placeholder-bg, #e0e0e0); /* Fallback for image area */
+    background-color: var(
+      --placeholder-bg,
+      #e0e0e0
+    ); /* Fallback for image area */
     overflow: hidden; /* Ensure image respects this container */
     position: relative;
     /* padding-top is now handled dynamically via inline style from aspectRatio prop */
@@ -94,12 +111,14 @@ if (parts.length === 2 && !isNaN(parts[0]) && !isNaN(parts[1]) && parts[0] > 0 &
   }
 
   .project-card:hover .project-card-thumbnail img {
-    /* transform: scale(1.05); */ /* Subtle zoom on hover */
+    transform: scale(1.05); /* Subtle zoom on hover */
   }
 
   .project-card-title {
-    font-family: var(--font-family-heading); /* Using heading font as per NHG Display Pro */
-    font-size: 1.25rem; /* Approx 20px if base is 16px */
+    font-family: var(
+      --font-family-heading
+    ); /* Using heading font as per NHG Display Pro */
+    font-size: 0.875rem; /* Approx 20px if base is 16px */
     font-weight: 600; /* Placeholder for "65 Medium" */
     margin-top: 0.5rem;
     margin-bottom: calc(var(--spacing-unit, 8px) * 0.25); /* Smaller gap */
@@ -109,8 +128,10 @@ if (parts.length === 2 && !isNaN(parts[0]) && !isNaN(parts[1]) && parts[0] > 0 &
   }
 
   .project-card-categories {
-    font-family: var(--font-family-sans-serif); /* Placeholder for NHG Display Pro Roman */
-    font-size: 0.75rem; /* Approx 12px */
+    font-family: var(
+      --font-family-sans-serif
+    ); /* Placeholder for NHG Display Pro Roman */
+    font-size: 0.875rem; /* Approx 12px */
     font-weight: 400; /* Regular/Roman weight */
     color: var(--secondary-text-color, #757575); /* Grey color */
     text-transform: uppercase; /* As seen in the image */

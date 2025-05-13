@@ -86,6 +86,9 @@ const { title = "Services", serviceItems = services } = Astro.props;
     /* Default to 1 column */
     grid-template-columns: 1fr;
     gap: calc(var(--spacing-unit, 8px) * 4); /* Gap between service items */
+    max-width: 840px;
+    text-align: center;
+    margin: auto;
   }
 
   /* Ensure services-list remains single column even on wider screens */
@@ -106,6 +109,7 @@ const { title = "Services", serviceItems = services } = Astro.props;
     /* padding: calc(var(--spacing-unit, 8px) * 2); */
     /* border-radius: var(--card-border-radius, 8px); */
     /* No specific card styling in the image, more like text blocks */
+    text-align: left;
   }
 
   .service-item-title {
