@@ -1,0 +1,82 @@
+---
+// src/components/AboutIntroSection.astro
+export interface Props {
+  biographyText?: string[]; // Array of paragraphs
+  headshotUrl?: string;
+  headshotAlt?: string;
+}
+
+const {
+  biographyText = [
+    "Hi, I'm Lanyan Hu, a Senior Art Director and Design Consultant with a Chinese background, currently based in Paris. With a strong focus on branding and packaging, I explore the progressive intersection of both disciplines. I specialize in branding, packaging design, illustration, photo retouching, motion design, and have a growing interest in UI design.",
+    "I've had the opportunity to work with clients across FMCG, culture, and fashion industries from China, Australia, and France. I'm passionate about creating a distinct visual language, grounded in solid design craft, believe that design should convey the brand's concept and value."
+  ],
+  headshotUrl = "/placeholders/logo-placeholder.svg", // Using the logo placeholder until we have the actual headshot image
+  headshotAlt = "Lanyan Hu - Senior Art Director"
+} = Astro.props;
+---
+
+<section class="about-intro-section">
+  <div class="container">
+    <div class="intro-content-wrapper">
+      <div class="headshot-container">
+        <img src={headshotUrl} alt={headshotAlt} class="headshot-image" />
+      </div>
+      <div class="biography-container">
+        {biographyText.map(paragraph => <p>{paragraph}</p>)}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about-intro-section {
+    padding: calc(var(--spacing-unit, 8px) * 4) 0; /* Adjust padding as needed */
+  }
+
+  .intro-content-wrapper {
+    display: grid;
+    gap: calc(var(--spacing-unit, 8px) * 4);
+    align-items: start; /* Align items to the start of their grid area */
+  }
+
+  @media (min-width: var(--breakpoint-md, 768px)) {
+    .intro-content-wrapper {
+      grid-template-columns: 1fr 2fr; /* Headshot | Biography */
+      /* Potentially reverse for visual: grid-template-columns: 2fr 1fr; if bio first */
+      align-items: center; /* Vertically align center for a balanced look */
+    }
+  }
+
+  .headshot-container {
+    text-align: center; /* Center headshot on mobile */
+  }
+
+  .headshot-image {
+    max-width: 300px; /* Control max size of headshot */
+    width: 100%;
+    height: auto;
+    border-radius: 50%; /* Circular headshot as often seen, adjust if Figma is different */
+    object-fit: cover;
+    border: 3px solid var(--border-color-light, #eee); /* Optional subtle border */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  @media (min-width: var(--breakpoint-md, 768px)) {
+    .headshot-container {
+      text-align: left; /* Align to start on larger screens */
+    }
+  }
+
+  .biography-container p {
+    font-family: var(--font-family-sans-serif);
+    font-size: 1rem; /* Adjust based on Figma */
+    line-height: 1.8; /* Generous line height for readability */
+    color: var(--text-color);
+    margin-bottom: calc(var(--spacing-unit, 8px) * 2);
+  }
+
+  .biography-container p:last-child {
+    margin-bottom: 0;
+  }
+</style>

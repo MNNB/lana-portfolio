@@ -1,0 +1,226 @@
+---
+// src/components/ContactSection.astro
+export interface Props {
+  title?: string;
+  subtitle?: string;
+  availabilityText?: string;
+  email?: string;
+  phone?: string; // Optional
+  formAction?: string; // For Netlify forms or other backend
+  formMethod?: string;
+}
+
+const {
+  title = "Say Hi", // From the image
+  subtitle = "LET'S BUILD TOGETHER AND TURN YOUR VISION TO LIFE.", // Re-using this prominent CTA
+  availabilityText = "Currently available for freelance projects and collaborations.",
+  email = "hu.lanyan@gmail.com", // From the image
+  phone = "+33 6 5683 4241", // From the image
+  formAction = "/contact-success", // Example success page for Netlify forms
+  formMethod = "POST"
+} = Astro.props;
+---
+
+<section class="contact-section">
+  <div class="container">
+    <div class="contact-header">
+      {subtitle && <p class="contact-subtitle">{subtitle}</p>}
+      <h2 class="section-title contact-title">{title}</h2>
+      {availabilityText && <p class="availability-text">{availabilityText}</p>}
+    </div>
+
+    <div class="contact-content-wrapper">
+      <div class="contact-form-container">
+        <form 
+          name="contact" 
+          method={formMethod} 
+          data-netlify="true" 
+          netlify-honeypot="bot-field"
+          action={formAction}
+          class="contact-form"
+        >
+          {/* Hidden input for Netlify's bot field */}
+          <p class="hidden" style="display:none;">
+            <label>Don’t fill this out if you’re human: <input name="bot-field" /></label>
+          </p>
+          {/* Hidden input for Netlify to identify the form */}
+          <input type="hidden" name="form-name" value="contact" />
+
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required />
+          </div>
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" name="subject" />
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+          </div>
+          <div class="form-group">
+            <button type="submit" class="cta-button">Send Message</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="contact-details-container">
+        <h4>Contact Details</h4>
+        <p><a href={`mailto:${email}`}>{email}</a></p>
+        {phone && <p><a href={`tel:${phone.replace(/\s/g, '')}`}>{phone}</a></p>}
+        
+        <h4 style="margin-top: 2rem;">Follow Me</h4>
+        <ul class="social-links-contact">
+          <li><a href="#" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+          <li><a href="#" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+          {/* Add other relevant social media links from Footer or specific to contact */}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact-section {
+    padding: calc(var(--spacing-unit, 8px) * 6) 0;
+    background-color: var(--background-color, #fff);
+  }
+
+  .contact-header {
+    text-align: center;
+    margin-bottom: calc(var(--spacing-unit, 8px) * 5);
+  }
+
+  .contact-subtitle {
+    font-family: var(--font-family-heading);
+    font-size: clamp(1.5rem, 4vw, 2.2rem); /* Slightly smaller than hero */
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin-bottom: calc(var(--spacing-unit, 8px) * 1);
+    color: var(--text-color);
+    text-transform: uppercase;
+  }
+  
+  .section-title.contact-title {
+    font-family: var(--font-family-heading);
+    font-size: clamp(2.5rem, 6vw, 5rem); /* Large "Say Hi" */
+    margin-bottom: calc(var(--spacing-unit, 8px) * 1.5);
+    color: var(--text-color);
+    text-transform: none; /* "Say Hi" is not uppercase in image */
+  }
+
+  .availability-text {
+    font-size: 1rem;
+    color: var(--secondary-text-color, #555);
+    margin-bottom: calc(var(--spacing-unit, 8px) * 3);
+  }
+
+  .contact-content-wrapper {
+    display: grid;
+    gap: calc(var(--spacing-unit, 8px) * 5);
+  }
+
+  @media (min-width: var(--breakpoint-lg, 992px)) {
+    .contact-content-wrapper {
+      grid-template-columns: 2fr 1fr; /* Form takes more space */
+      align-items: start;
+    }
+  }
+
+  .contact-form-container {
+    /* Styles for the form container if needed */
+  }
+
+  .contact-form .form-group {
+    margin-bottom: calc(var(--spacing-unit, 8px) * 2);
+  }
+
+  .contact-form label {
+    display: block;
+    margin-bottom: calc(var(--spacing-unit, 8px) * 0.5);
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: var(--text-color);
+  }
+
+  .contact-form input[type="text"],
+  .contact-form input[type="email"],
+  .contact-form textarea {
+    width: 100%;
+    padding: calc(var(--spacing-unit, 8px) * 1.5);
+    border: 1px solid var(--border-color-form, #ccc);
+    border-radius: var(--input-border-radius, 4px);
+    font-size: 1rem;
+    background-color: var(--input-bg, #fff);
+    color: var(--text-color);
+  }
+
+  .contact-form input[type="text"]:focus,
+  .contact-form input[type="email"]:focus,
+  .contact-form textarea:focus {
+    outline: none;
+    border-color: var(--primary-color, #007bff);
+    box-shadow: 0 0 0 2px rgba(var(--primary-color-rgb, 0,123,255), 0.25); /* Example focus */
+  }
+  
+  .contact-form .cta-button {
+    background-color: var(--primary-color, #007bff);
+    color: #fff;
+    padding: calc(var(--spacing-unit, 8px) * 1.5) calc(var(--spacing-unit, 8px) * 3);
+    border: none;
+    border-radius: var(--button-border-radius, 50px);
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+  }
+
+  .contact-form .cta-button:hover {
+    background-color: var(--primary-color-dark, #0056b3);
+  }
+
+  .contact-details-container {
+    /* text-align: center; */ /* If form is above on mobile */
+  }
+  
+  /* @media (min-width: var(--breakpoint-lg, 992px)) {
+    .contact-details-container {
+      text-align: left;
+    }
+  } */
+
+  .contact-details-container h4 {
+    font-family: var(--font-family-heading);
+    font-size: 1.2rem;
+    margin-bottom: var(--spacing-unit, 8px);
+    color: var(--text-color);
+  }
+  .contact-details-container p {
+    margin-bottom: calc(var(--spacing-unit, 8px) * 0.75);
+    font-size: 1rem;
+  }
+  .contact-details-container a {
+    color: var(--primary-color, #007bff);
+    text-decoration: none;
+  }
+  .contact-details-container a:hover {
+    text-decoration: underline;
+  }
+
+  .social-links-contact {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: var(--spacing-unit, 8px);
+  }
+  .social-links-contact a {
+    /* Add icons or text styles */
+    font-size: 1rem;
+  }
+
+</style>

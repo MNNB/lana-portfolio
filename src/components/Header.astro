@@ -1,0 +1,171 @@
+---
+// src/components/Header.astro
+import { Image } from 'astro:assets';
+import logoSvg from '../assets/logo/logo.svg';
+---
+
+<header class="site-header">
+  <div class="container">
+    <div class="logo">
+      <a href="/" aria-label="Accueil">
+        <Image src={logoSvg} alt="Lanyan's Logo" width={54} height={24} />
+      </a>
+    </div>
+    <nav class="main-navigation" aria-label="Navigation principale">
+      <ul role="menubar">
+        <li role="none">
+          <a href="/contact" role="menuitem">
+            <span>Start your project</span>
+            <span>hu.lanyan@gmail.com</span>
+          </a>
+        </li>
+        <li role="none">
+          <a href="/projects" role="menuitem">
+            <span>Project</span>
+            <span>Instagram</span>
+          </a>
+        </li>
+        <li role="none">
+          <a href="/about" role="menuitem">
+            <span>About</span>
+            <span>Side Project</span>
+          </a>
+        </li>
+      </ul>
+      <button type="button" class="mobile-menu-toggle" aria-label="Menu" aria-expanded="false" aria-controls="mobile-menu" hidden>
+        <span class="sr-only">Menu</span>
+        <span class="burger-icon"></span>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    background-color: var(--header-bg, #fff);
+    padding: 20px 40px;
+  }
+
+  .site-header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .logo {
+    flex: 1;
+  }
+
+  .logo a {
+    text-decoration: none;
+  }
+
+  .logo img {
+    display: block;
+    height: 24px;
+    width: auto;
+  }
+
+  .main-navigation {
+    flex: 3;
+  }
+  
+  .main-navigation ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    gap: 120px;
+  }
+  
+  .main-navigation li {
+    margin: 0;
+    flex-grow: 1;
+  }
+
+  .main-navigation a {
+    text-decoration: none;
+    color: #000;
+    font-family: 'Monument Grotesk', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.16em;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+  
+  .main-navigation a span {
+    display: block;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .main-navigation a:hover {
+    opacity: 0.7;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+
+  .mobile-menu-toggle {
+    display: none;
+  }
+
+  /* Basic responsive considerations - will be expanded for burger menu */
+  @media (max-width: 768px) {
+    .site-header {
+      padding: 15px 20px;
+    }
+    
+    .main-navigation ul {
+      display: none; /* Hidden by default, toggled by JS */
+    }
+
+    .mobile-menu-toggle {
+      display: block;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 10px;
+    }
+
+    .burger-icon {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background-color: #000;
+      position: relative;
+    }
+
+    .burger-icon::before,
+    .burger-icon::after {
+      content: '';
+      position: absolute;
+      width: 24px;
+      height: 2px;
+      background-color: #000;
+      left: 0;
+    }
+
+    .burger-icon::before {
+      top: -6px;
+    }
+
+    .burger-icon::after {
+      bottom: -6px;
+    }
+  }
+</style>

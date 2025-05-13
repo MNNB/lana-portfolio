@@ -1,0 +1,121 @@
+---
+// src/components/ProjectCard.astro
+export interface Props {
+  title: string;
+  categories: string[]; // e.g., ["Packaging design", "Illustration"]
+  thumbnailUrl: string;
+  projectUrl: string; // Link to the individual project page
+  aspectRatio?: string; // e.g., '4/3' or '16/9' to help with image loading
+}
+
+const {
+  title = "Sample Project Title",
+  categories = ["Design", "Development"],
+  thumbnailUrl = "/placeholders/project-thumb-400x300.png", // Default placeholder
+  projectUrl = "#",
+  // Default W/H aspect ratio. Changed from "4/3" to "676/580" to maintain
+  // the previous visual default (approx 85.8% padding-top from original Figma design).
+  aspectRatio = "676/580",
+} = Astro.props;
+
+const categoryString = categories.join(" / ");
+
+let paddingTopToUse: string;
+// Parse the aspectRatio prop (e.g., "W/H") to calculate padding-top (H/W * 100%)
+const parts = aspectRatio.split('/').map(s => parseFloat(s.trim()));
+if (parts.length === 2 && !isNaN(parts[0]) && !isNaN(parts[1]) && parts[0] > 0 && parts[1] > 0) {
+  paddingTopToUse = (parts[1] / parts[0]) * 100 + "%";
+} else {
+  // Fallback if aspectRatio prop is malformed. Uses a common 4:3 visual aspect.
+  // This should ideally not be reached if the default prop value is valid.
+  console.warn(`Invalid aspect ratio format: "${aspectRatio}". Defaulting to 4:3 visual aspect (75% padding-top).`);
+  paddingTopToUse = "75%";
+}
+---
+
+<article class="project-card">
+  <a href={projectUrl} class="project-card-link">
+    <div class="project-card-thumbnail" style={`padding-top: ${paddingTopToUse};`}>
+      <img
+        src={thumbnailUrl}
+        alt={`Thumbnail for ${title}`}
+        loading="lazy"
+      />
+    </div>
+    <div class="project-card-content">
+      <h3 class="project-card-title">{title}</h3>
+      {categories.length > 0 && (
+        <p class="project-card-categories">{categoryString}</p>
+      )}
+    </div>
+  </a>
+</article>
+
+<style>
+  .project-card {
+    background-color: var(--card-bg-color, var(--background-color, #fff));
+    /* box-shadow: 0 2px 8px rgba(0,0,0,0.05); */ /* Subtle shadow if desired */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden; /* Ensures content respects card boundaries */
+  }
+
+  .project-card:hover {
+    /* transform: translateY(-5px); */
+    /* box-shadow: 0 6px 12px rgba(0,0,0,0.1); */
+  }
+
+  .project-card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .project-card-thumbnail {
+    background-color: var(--placeholder-bg, #e0e0e0); /* Fallback for image area */
+    overflow: hidden; /* Ensure image respects this container */
+  }
+
+  .project-card-thumbnail {
+    background-color: var(--placeholder-bg, #e0e0e0); /* Fallback for image area */
+    overflow: hidden; /* Ensure image respects this container */
+    position: relative;
+    /* padding-top is now handled dynamically via inline style from aspectRatio prop */
+  }
+
+  .project-card-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures image covers the area, might crop */
+    display: block;
+    transition: transform 0.3s ease;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .project-card:hover .project-card-thumbnail img {
+    /* transform: scale(1.05); */ /* Subtle zoom on hover */
+  }
+
+  .project-card-title {
+    font-family: var(--font-family-heading); /* Using heading font as per NHG Display Pro */
+    font-size: 1.25rem; /* Approx 20px if base is 16px */
+    font-weight: 600; /* Placeholder for "65 Medium" */
+    margin-top: 0.5rem;
+    margin-bottom: calc(var(--spacing-unit, 8px) * 0.25); /* Smaller gap */
+    color: var(--text-color, #000000); /* Black as per Figma */
+    line-height: 1.3;
+    text-align: right; /* Left-align text */
+  }
+
+  .project-card-categories {
+    font-family: var(--font-family-sans-serif); /* Placeholder for NHG Display Pro Roman */
+    font-size: 0.75rem; /* Approx 12px */
+    font-weight: 400; /* Regular/Roman weight */
+    color: var(--secondary-text-color, #757575); /* Grey color */
+    text-transform: uppercase; /* As seen in the image */
+    letter-spacing: 0.05em;
+    line-height: 1.4;
+    text-align: right; /* Left-align text */
+  }
+</style>

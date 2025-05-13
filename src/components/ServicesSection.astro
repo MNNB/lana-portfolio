@@ -1,0 +1,130 @@
+---
+// src/components/ServicesSection.astro
+
+interface ServiceItem {
+  title: string;
+  description: string;
+}
+
+const services: ServiceItem[] = [
+  {
+    title: "Design Consulting",
+    description:
+      "Transform brand identity and packaging with strategic and creative design solutions. From concept to execution, ensure a compelling visual presence that captivates and drives success.",
+  },
+  {
+    title: "Branding Packaging",
+    description:
+      "Crafting distinctive brand identities and packaging that captivate, connect, and elevate. Blending creativity and functionality, every detail—from logo design to visual communications and packaging solutions—is thoughtfully designed for impact, recognition, and lasting impressions.",
+  },
+  {
+    title: "Illustration",
+    description:
+      "Tailoring a diverse range of creative and contemporary illustration styles to meet customer needs and specific usage scenarios, crafted meticulously from initial sketches to fully realized final pieces.",
+  },
+  {
+    title: "Motion Graphic Video Editing",
+    description:
+      "From concept to final animation, handling tasks such as illustration, storyboard, and 2D animation using tools like After Effects and DaVinci Resolve. Working on various formats including digital advertising, social media posts, and animated motion design videos.",
+  },
+  {
+    title: "Chinese Market Needs",
+    description:
+      "Brand strategy, graphic design, and art direction tailored to the Chinese market, with seamless project management and communication. Facilitating translation between Chinese, English, and French to ensure clear and effective collaboration.",
+  },
+];
+
+export interface Props {
+  title?: string;
+  serviceItems?: ServiceItem[];
+}
+
+const { title = "Services", serviceItems = services } = Astro.props;
+---
+
+<section class="services-section">
+  <div class="container">
+    <h2 class="section-title">{title}</h2>
+    <div class="services-list">
+      {
+        serviceItems.map((service) => (
+          <div class="service-item">
+            <h3 class="service-item-title">{service.title}</h3>
+            <p class="service-item-description">{service.description}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .services-section {
+    padding: calc(var(--spacing-unit, 8px) * 6) 0;
+    background-color: var(--section-bg, #fff); /* Ensure white background */
+  }
+
+  .section-title {
+    font-family: var(--font-family-heading);
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    text-align: left; /* Align to the left */
+    width: fit-content; /* Ensure border is only under text */
+    border-bottom: 1px solid var(--text-color, #000); /* Line under the title */
+    padding-bottom: calc(
+      var(--spacing-unit, 8px) * 1
+    ); /* Space between text and line */
+    margin-bottom: calc(
+      var(--spacing-unit, 8px) * 6
+    ); /* Space after title and line */
+    color: var(--text-color);
+    text-transform: uppercase; /* As seen in the image */
+    letter-spacing: 0.05em;
+  }
+
+  .services-list {
+    display: grid;
+    /* Default to 1 column */
+    grid-template-columns: 1fr;
+    gap: calc(var(--spacing-unit, 8px) * 4); /* Gap between service items */
+  }
+
+  /* Ensure services-list remains single column even on wider screens */
+  @media (min-width: var(--breakpoint-md, 768px)) {
+    .services-list {
+      grid-template-columns: 1fr; /* Always one column */
+    }
+  }
+
+  .service-item {
+    display: grid;
+    grid-template-columns: clamp(160px, 22%, 220px) auto; /* Title column (left) and Description column (right) */
+    gap: calc(
+      var(--spacing-unit, 8px) * 4
+    ); /* Gap between title and description */
+    align-items: start; /* Align items to the top of their cell */
+    /* border: 1px solid var(--border-color-light, #eee); */
+    /* padding: calc(var(--spacing-unit, 8px) * 2); */
+    /* border-radius: var(--card-border-radius, 8px); */
+    /* No specific card styling in the image, more like text blocks */
+  }
+
+  .service-item-title {
+    font-family: var(
+      --font-family-sans-serif
+    ); /* Use standard sans-serif for a cleaner look */
+    font-size: 1.15rem; /* Slightly smaller for better balance with description */
+    font-weight: 700; /* Bold, as it appears in the image */
+    margin-bottom: calc(
+      var(--spacing-unit, 8px) * 0.5
+    ); /* Adjust margin for potentially wrapped titles */
+    color: var(--text-color);
+    line-height: 1.4; /* Improved line spacing for multi-line titles */
+  }
+
+  .service-item-description {
+    font-family: var(--font-family-sans-serif);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--secondary-text-color, #555);
+  }
+</style>

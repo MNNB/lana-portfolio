@@ -1,0 +1,52 @@
+---
+// src/components/PhilosophySection.astro
+
+export interface Props {
+  title?: string;
+  philosophyText?: string[]; // Array of paragraphs
+}
+
+const {
+  title = "My Design Philosophy",
+  philosophyText = [
+    "Placeholder for a thoughtful articulation of the designer's personal philosophy and approach to design. This could cover core values, creative process, and the impact they aim to achieve through their work.",
+    "Another paragraph to elaborate on specific aspects of their design thinking, perhaps how they approach client collaboration or problem-solving."
+  ]
+} = Astro.props;
+---
+
+<section class="philosophy-section">
+  <div class="container">
+    {title && <h2 class="section-title">{title.toUpperCase()}</h2>}
+    <div class="philosophy-content">
+      {philosophyText.map(paragraph => <p>{paragraph}</p>)}
+    </div>
+  </div>
+</section>
+
+<style>
+  .philosophy-section {
+    padding: calc(var(--spacing-unit, 8px) * 4) 0;
+    background-color: var(--section-bg-alternate, #f9f9f9); /* Optional alternate bg */
+  }
+
+  .section-title {
+    font-family: var(--font-family-heading);
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    text-align: left; /* Consistent with other About page section titles */
+    margin-bottom: calc(var(--spacing-unit, 8px) * 3);
+    color: var(--text-color);
+  }
+
+  .philosophy-content p {
+    font-family: var(--font-family-sans-serif);
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--text-color); /* Or --secondary-text-color for a softer look */
+    margin-bottom: calc(var(--spacing-unit, 8px) * 2);
+  }
+
+  .philosophy-content p:last-child {
+    margin-bottom: 0;
+  }
+</style>

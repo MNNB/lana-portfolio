@@ -1,0 +1,141 @@
+---
+// src/pages/about.astro
+import Layout from '../layouts/Layout.astro';
+import AboutIntroSection from '../components/AboutIntroSection.astro';
+import SkillsSection from '../components/SkillsSection.astro';
+import TimelineSection from '../components/TimelineSection.astro';
+import type { TimelineItem } from '../components/TimelineSection.astro';
+import ReferencesSection from '../components/ReferencesSection.astro';
+
+const pageTitle = "About | Graphic Designer"; // Figma shows "ABOUT" as the main title
+const pageDescription = "Learn more about my journey, skills, and design philosophy as a professional graphic designer.";
+
+const experienceItems: TimelineItem[] = [
+  {
+    dateRange: "Oct 2020 - Present",
+    title: "Freelance Senior Art Director",
+    institution: "Paris",
+    description: "Working with various clients on branding, packaging, and design projects."
+  },
+  {
+    dateRange: "Mai 2024 - January 2025",
+    title: "Freelance photo retoucher",
+    institution: "Moet Hennessy, Paris",
+    description: "Photo retouching for luxury brands."
+  },
+  {
+    dateRange: "Mai 2022 - Aug 2022",
+    title: "Packaging Art Director",
+    institution: "Surf Design, Paris",
+    description: "Specialized in packaging design for various clients."
+  },
+  {
+    dateRange: "Jan 2019 - April 2020",
+    title: "Senior Art Director",
+    institution: "Motor Brand Design, Melbourne",
+    description: "Led design projects for Australian and international clients."
+  },
+  {
+    dateRange: "July 2017 - June 2018",
+    title: "Art Director",
+    institution: "Hotshop, Paris",
+    description: "Worked on branding and design projects for various clients."
+  },
+  {
+    dateRange: "Jan 2016 - July 2017",
+    title: "Freelance Art Director",
+    institution: "Paris",
+    description: "Independent design work for various clients."
+  },
+  {
+    dateRange: "Dec 2012 - Nov 2015",
+    title: "Senior Designer",
+    institution: "NeochaEDGE, Shanghai",
+    description: "Design work for Chinese and international clients."
+  },
+  {
+    dateRange: "August 2011 - Dec 2011",
+    title: "Intern Junior Art Director",
+    institution: "Adoc design, Paris",
+    description: "Internship focusing on design fundamentals and client work."
+  }
+];
+
+const educationItems: TimelineItem[] = [
+  {
+    dateRange: "Mai 2024",
+    title: "Professional training UI designer",
+    institution: "Labtop / Paris",
+    description: "Specialized training in UI design principles and practices."
+  },
+  {
+    dateRange: "Nov 2022 - January 2023",
+    title: "Professional training Motion Graphic",
+    institution: "Les Gobelins / Paris",
+    description: "Advanced training in motion graphics and animation."
+  },
+  {
+    dateRange: "2012 July",
+    title: "Visual communication",
+    institution: "Intuit Lab / Master's Degree / Paris",
+    description: "Master's degree in visual communication."
+  },
+  {
+    dateRange: "2011 July",
+    title: "Visual communication",
+    institution: "ECV / Bac+3 / Paris",
+    description: "Bachelor's level education in visual communication."
+  },
+  {
+    dateRange: "2007 July",
+    title: "Fine arts / Illustration",
+    institution: "Beihang University / Bachelor Degree / Beijing",
+    description: "Bachelor's degree focusing on fine arts and illustration."
+  }
+];
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+  <div class="page-header-container container">
+    <h1 class="page-main-title">ABOUT</h1>
+  </div>
+
+  <AboutIntroSection />
+
+  <SkillsSection />
+
+  <TimelineSection sectionTitle="Experiences" items={experienceItems} />
+  <TimelineSection sectionTitle="Education / Professional Training" items={educationItems} />
+
+  <ReferencesSection />
+
+  {/* Remove the final placeholder list as all About Page sections are now added */}
+</Layout>
+
+<style>
+  .page-header-container {
+    padding-top: calc(var(--spacing-unit, 8px) * 4);
+    padding-bottom: calc(var(--spacing-unit, 8px) * 2);
+    text-align: left; /* Or center, depending on overall page style */
+  }
+
+  .page-main-title {
+    font-family: var(--font-family-heading);
+    font-size: clamp(3rem, 8vw, 6rem); /* Large, impactful title */
+    font-weight: 700; /* Bold */
+    line-height: 1.1;
+    color: var(--text-color);
+    text-transform: uppercase;
+    margin-bottom: calc(var(--spacing-unit, 8px) * 2);
+    /* Consider letter-spacing if needed from Figma */
+  }
+
+  /* Placeholder list styling */
+  .container > p {
+    margin-bottom: 0.5rem;
+  }
+  .container ul {
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+  }
+</style>

@@ -1,0 +1,210 @@
+---
+// src/components/ProjectGrid.astro
+import ProjectCard from "./ProjectCard.astro";
+import type { Props as ProjectCardProps } from "./ProjectCard.astro";
+
+// Placeholder project data - this would eventually come from a data source or CMS
+const placeholderProjects: ProjectCardProps[] = [
+  {
+    title: "Red Legend Duck Snacks",
+    categories: ["Packaging design", "Illustration"],
+    thumbnailUrl: "/src/assets/thumbnails/DuckSnacks_F.png",
+    projectUrl: "/projects/red-legend-duck-snacks", // Example project URL
+    aspectRatio: "0.78", // Approx from image
+  },
+  {
+    title: "Snacks Market Snack Range",
+    categories: ["Packaging design", "Illustration"],
+    thumbnailUrl: "/src/assets/thumbnails/SnacksMarkets_F.png",
+    projectUrl: "/projects/snacks-market-range",
+    aspectRatio: "0.78",
+  },
+  {
+    title: "Nescafé China",
+    categories: ["Packaging design"],
+    thumbnailUrl: "/src/assets/thumbnails/NescafeC_F.png",
+    projectUrl: "/projects/nescafe-china",
+    aspectRatio: "1.05", // Approx from image
+  },
+  {
+    title: "Veuve Clicquot",
+    categories: ["Photo retouching"],
+    thumbnailUrl: "/placeholders/project-thumb-400x300.png",
+    projectUrl: "/projects/veuve-clicquot",
+    aspectRatio: "1.05", // Approx from image
+  },
+  {
+    title: "Mamia Nappies",
+    categories: ["Character design", "Packaging design"],
+    thumbnailUrl: "/src/assets/thumbnails/MamiaNappies_F.png",
+    projectUrl: "/projects/mamia-nappies",
+    aspectRatio: "0.78",
+  },
+  {
+    title: "Fresh Salade Co Range",
+    categories: ["Packaging design"],
+    thumbnailUrl: "/src/assets/thumbnails/FreshCo_F.png",
+    projectUrl: "/projects/fresh-salade-co",
+    aspectRatio: "0.78",
+  },
+  // Add more placeholder projects as needed to test the grid
+];
+
+export interface Props {
+  projects?: ProjectCardProps[];
+  title?: string;
+}
+
+const { projects = placeholderProjects } = Astro.props;
+---
+
+<section class="project-grid-section">
+  <div class="container">
+    <div class="category-filters">
+      <a href="#featuring" class="category-filter active">/FEATURING</a>
+      <a href="#packaging" class="category-filter">/PACKAGING</a>
+      <a href="#illustration" class="category-filter">/ILLUSTRATION</a>
+      <a href="#branding" class="category-filter">/BRANDING</a>
+      <a href="#motion" class="category-filter">/MOTION</a>
+      <a href="#photo-retouching" class="category-filter">/PHOTO RETOUCHING</a>
+      <a href="#art-direction" class="category-filter">/ART DIRECTION</a>
+    </div>
+
+    {
+      projects && projects.length > 0 ? (
+        <div class="project-grid">
+          {projects.map((project) => (
+            <div class="project-item" data-categories={project.categories.map(c => c.toLowerCase().replace(/\s+/g, '-')).join('|')}>
+              <ProjectCard {...project} />
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p>No projects to display at the moment.</p>
+      )
+    }
+  </div>
+</section>
+
+<style>
+  .project-grid-section {
+    padding: calc(var(--spacing-unit, 8px) * 6) 0; /* Example: 48px padding */
+  }
+
+  .section-title {
+    font-family: var(--font-family-heading);
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    text-align: center; /* Or left, depending on design */
+    margin-bottom: calc(var(--spacing-unit, 8px) * 4); /* Example: 32px */
+    color: var(--text-color);
+  }
+
+  .project-grid {
+    display: grid;
+    /* Default to 1 column on small screens */
+    grid-template-columns: 1fr;
+    gap: calc(
+      var(--spacing-unit, 8px) * 5
+    ); /* Figma-inspired gap, e.g., 40px if unit is 8px */
+    margin-top: 40px; /* Added margin to separate from filters */
+  }
+
+  /* 2 columns for medium screens and up */
+  @media (min-width: 768px) {
+    .project-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  /* Optional: 3 columns for larger screens if desired */
+  /*
+  @media (min-width: var(--breakpoint-lg, 992px)) {
+    .project-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  */
+
+  /* Styles for category filters (moved from HeroSection.astro) */
+  .category-filters {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem 3rem;
+    margin-top: 40px; /* Style original de HeroSection.astro */
+  }
+
+  .category-filter {
+    font-family: 'Monument Grotesk', sans-serif;
+    font-size: 3rem;
+    text-decoration: none;
+    color: #CCCCCC;
+    transition: color 0.3s ease;
+    line-height: 1.2;
+  }
+
+  .category-filter.active {
+    color: #000;
+  }
+
+  .category-filter:hover {
+    color: #000;
+  }
+
+  @media (max-width: 768px) {
+    .category-filters {
+      gap: 0;
+    }
+    
+    .category-filter {
+      font-size: 36px;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const filters = document.querySelectorAll('.category-filter');
+    const projectItems = document.querySelectorAll('.project-item');
+
+    function setActiveFilter(activeFilter) {
+      filters.forEach(filter => {
+        filter.classList.remove('active');
+      });
+      activeFilter.classList.add('active');
+    }
+
+    function filterProjects(category) {
+      const normalizedCategory = category.toLowerCase().replace(/\s+/g, '-');
+      projectItems.forEach(item => {
+        if (normalizedCategory === 'featuring') {
+          item.style.display = '';
+        } else {
+          const itemCategories = item.dataset.categories.split('|');
+          // Check if any of the item's categories *includes* the filter category
+          // This allows "packaging" to match "packaging-design"
+          const matches = itemCategories.some(itemCat => itemCat.includes(normalizedCategory));
+          item.style.display = matches ? '' : 'none';
+        }
+      });
+    }
+
+    // Initial state: "Featuring" active, all projects shown
+    const initialActiveFilter = document.querySelector('.category-filter[href="#featuring"]');
+    if (initialActiveFilter) {
+      setActiveFilter(initialActiveFilter);
+      filterProjects('featuring');
+    }
+
+    filters.forEach(filter => {
+      filter.addEventListener('click', (e) => {
+        e.preventDefault();
+        // Extract category from href, remove #, and normalize
+        const targetCategory = filter.hash.substring(1);
+        setActiveFilter(filter);
+        filterProjects(targetCategory);
+      });
+    });
+  });
+</script>
+

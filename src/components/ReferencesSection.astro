@@ -1,0 +1,123 @@
+---
+// src/components/ReferencesSection.astro
+
+interface ReferenceGroup {
+  title: string;
+  references: string[];
+}
+
+export interface Props {
+  title?: string;
+  referenceGroups?: ReferenceGroup[];
+}
+
+// Default reference groups based on the Figma design
+const defaultReferenceGroups: ReferenceGroup[] = [
+  {
+    title: "Fashion",
+    references: [
+      "Gap",
+      "Adidas",
+      "Lee"
+    ]
+  },
+  {
+    title: "Retail",
+    references: [
+      "Nestlé",
+      "Monoprix",
+      "Carrefour",
+      "Lidl / Aldi",
+      "Intermarché",
+      "Auchan"
+    ]
+  },
+  {
+    title: "Other",
+    references: [
+      "Brand in China",
+      "Beautiful Scenery",
+      "Lululemon",
+      "Aldi",
+      "Foodbowl"
+    ]
+  }
+];
+
+const { 
+  title = "Reference", 
+  referenceGroups = defaultReferenceGroups 
+} = Astro.props;
+---
+
+<section class="references-section">
+  <div class="container">
+    <h2 class="section-title">{title}</h2>
+    <div class="references-list">
+      {referenceGroups.map(group => (
+        <div class="reference-group">
+          {group.title && <h3 class="reference-group-title">{group.title}</h3>}
+          <ul class="reference-items">
+            {group.references.map(reference => (
+              <li class="reference-item">{reference}</li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .references-section {
+    padding: calc(var(--spacing-unit, 8px) * 4) 0;
+  }
+
+  .section-title {
+    font-family: var(--font-family-heading);
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    text-align: left;
+    margin-bottom: calc(var(--spacing-unit, 8px) * 4);
+    color: var(--text-color);
+    text-transform: uppercase;
+  }
+
+  .references-list {
+    display: grid;
+    gap: calc(var(--spacing-unit, 8px) * 4);
+  }
+
+  @media (min-width: var(--breakpoint-sm, 576px)) {
+    .references-list {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (min-width: var(--breakpoint-lg, 992px)) {
+    .references-list {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .reference-group-title {
+    font-family: var(--font-family-heading);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: calc(var(--spacing-unit, 8px) * 1);
+    color: var(--text-color);
+  }
+
+  .reference-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .reference-item {
+    font-family: var(--font-family-sans-serif);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--secondary-text-color, #555);
+    margin-bottom: calc(var(--spacing-unit, 8px) * 0.5);
+  }
+</style>

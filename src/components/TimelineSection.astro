@@ -1,0 +1,112 @@
+---
+// src/components/TimelineSection.astro
+
+export interface TimelineItem {
+  dateRange: string;
+  title: string; // e.g., Job Title or Degree Name
+  institution: string; // e.g., Company Name or University Name
+  description?: string; // Optional brief description
+}
+
+export interface Props {
+  sectionTitle: string;
+  items: TimelineItem[];
+}
+
+// No default items here, they should be passed from the page
+const { sectionTitle, items } = Astro.props;
+---
+
+{items && items.length > 0 && (
+  <section class="timeline-section">
+    <div class="container">
+      <h2 class="section-title">{sectionTitle.toUpperCase()}</h2>
+      <div class="timeline-list">
+        {items.map(item => (
+          <div class="timeline-item">
+            <div class="timeline-item-date">{item.dateRange}</div>
+            <div class="timeline-item-content">
+              <h3 class="timeline-item-title">{item.title}</h3>
+              <p class="timeline-item-institution">{item.institution}</p>
+              {item.description && <p class="timeline-item-description">{item.description}</p>}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+
+<style>
+  .timeline-section {
+    padding: calc(var(--spacing-unit, 8px) * 4) 0;
+  }
+
+  .section-title {
+    font-family: var(--font-family-heading);
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    text-align: left; /* Matches Skills section title alignment */
+    margin-bottom: calc(var(--spacing-unit, 8px) * 4);
+    color: var(--text-color);
+    /* text-transform: uppercase; Handled in template */
+  }
+
+  .timeline-list {
+    display: grid;
+    gap: calc(var(--spacing-unit, 8px) * 4); /* Space between timeline entries */
+  }
+
+  .timeline-item {
+    display: grid;
+    gap: calc(var(--spacing-unit, 8px) * 2);
+    padding-bottom: calc(var(--spacing-unit, 8px) * 2);
+    border-bottom: 1px solid var(--border-color-light, #eee); /* Separator for items */
+  }
+  
+  .timeline-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  @media (min-width: var(--breakpoint-sm, 576px)) {
+    .timeline-item {
+      grid-template-columns: 1fr 3fr; /* Date | Content */
+      align-items: start;
+    }
+  }
+
+  .timeline-item-date {
+    font-family: var(--font-family-sans-serif);
+    font-size: 0.9rem;
+    font-weight: 600; /* Make date stand out a bit */
+    color: var(--secondary-text-color, #555);
+    padding-top: calc(var(--spacing-unit, 8px) * 0.25); /* Align with title baseline better */
+  }
+
+  .timeline-item-content {
+    /* Container for title, institution, description */
+  }
+
+  .timeline-item-title {
+    font-family: var(--font-family-heading);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: calc(var(--spacing-unit, 8px) * 0.5);
+    color: var(--text-color);
+  }
+
+  .timeline-item-institution {
+    font-family: var(--font-family-sans-serif);
+    font-size: 1rem;
+    font-style: italic; /* Common for institution names */
+    color: var(--text-color);
+    margin-bottom: calc(var(--spacing-unit, 8px) * 0.75);
+  }
+
+  .timeline-item-description {
+    font-family: var(--font-family-sans-serif);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--secondary-text-color, #555);
+  }
+</style>

@@ -1,0 +1,137 @@
+---
+// src/components/Footer.astro
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="back-to-top">
+    <a href="#top" aria-label="Back to top">Back to top</a>
+  </div>
+  <hr class="footer-separator">
+  <div class="container">
+    <div class="footer-main-content">
+      <div class="say-hi-section">
+        <h2>Say Hi</h2>
+      </div>
+      <div class="footer-social-links-new">
+        <ul>
+          <li><a href="#" target="_blank" rel="noopener noreferrer">Linkedin</a></li>
+          <li><a href="#" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+        </ul>
+      </div>
+      <div class="footer-contact-details">
+        <p><a href="mailto:hu.lanyan@gmail.com">hu.lanyan@gmail.com</a></p>
+        <p><a href="tel:+33601020304">+33 6 01 02 03 04</a></p>
+      </div>
+    </div>
+    <div class="site-info">
+      <p>@ Copyright 2025</p>
+      <p>Design layout by Lanyan</p>
+      <p>Coding by <a href="https://f-xd.me/" target="_blank">F-XD</a>. Powered by <a href="https://astro.build/" target="_blank">Astro</a></p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background-color: #ffffff; /* Fond blanc */
+    color: #000000; /* Texte noir */
+    padding: calc(var(--spacing-unit, 1rem) * 3) 0;
+    margin-top: auto; /* Pushes footer to the bottom if content is short */
+  }
+
+  .site-footer .container {
+    /* Container styles are in global.css */
+  }
+
+  .back-to-top {
+    text-align: right;
+    padding: calc(var(--spacing-unit, 1rem) * 0.5) calc(var(--spacing-unit, 1rem) * 2);
+    font-size: 0.8rem;
+  }
+
+  .back-to-top a {
+    color: #000000; /* Texte noir */
+    text-decoration: none;
+  }
+
+  .back-to-top a:hover {
+    text-decoration: underline;
+  }
+
+  .footer-separator {
+    border: 0;
+    border-top: 1px solid #cccccc; /* Séparateur gris clair pour fond blanc */
+    margin: var(--spacing-unit, 1rem) 0;
+    width: 100%;
+  }
+
+  .footer-main-content {
+    display: grid;
+    grid-template-columns: 1fr; /* Une colonne sur mobile */
+    gap: calc(var(--spacing-unit, 1rem) * 3); /* Espace plus grand entre les sections principales */
+    padding: calc(var(--spacing-unit, 1rem) * 2) 0;
+    text-align: center; /* Centrer sur mobile */
+  }
+
+  @media (min-width: 768px) { /* --breakpoint-md */
+    .footer-main-content {
+      grid-template-columns: repeat(3, 1fr); /* Trois colonnes sur écrans larges */
+      text-align: left; /* Aligner à gauche sur écrans larges */
+    }
+  }
+
+  .say-hi-section {
+    /* Peut nécessiter un alignement spécifique si le texte est plus petit que la colonne */
+  }
+  
+  .say-hi-section h2 {
+    font-size: clamp(2.5rem, 5vw, 4rem); /* Taille de police responsive, "très grand texte" */
+    font-weight: bold;
+    color: #000000; /* Texte noir */
+    margin: 0;
+    line-height: 1.1; /* Ajuster pour un meilleur espacement vertical */
+  }
+
+  .footer-social-links-new ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing-unit, 1rem) * 0.75); /* Espacement entre les liens sociaux */
+  }
+
+  .footer-main-content a {
+    color: #000000; /* Texte noir */
+    text-decoration: none;
+  }
+
+  .footer-main-content a:hover {
+    text-decoration: underline;
+  }
+  
+  .footer-main-content p,
+  .footer-main-content ul li a { /* Cibler les 'a' dans les 'li' pour les liens sociaux */
+    font-size: 0.9rem; /* Taille de police standard pour le contenu */
+  }
+
+  .footer-main-content p {
+     margin-bottom: calc(var(--spacing-unit, 1rem) * 0.5);
+  }
+  
+  .footer-contact-details p:last-child {
+    margin-bottom: 0; /* Pas de marge en bas pour le dernier paragraphe de contact */
+  }
+  
+  /* Les styles pour .site-info sont conservés et appliqués correctement */
+  .site-info {
+    grid-column: 1 / -1; /* Span full width */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: calc(var(--spacing-unit, 1rem) * 2);
+    font-size: 0.8rem;
+    opacity: 0.8;
+  }
+</style>

@@ -1,11 +1,40 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+// src/pages/index.astro
+import Layout from "../layouts/Layout.astro";
+import HeroSection from "../components/HeroSection.astro";
+import ProjectGrid from "../components/ProjectGrid.astro";
+import CtaBanner from "../components/CtaBanner.astro"; // Added CtaBanner
+import ServicesSection from "../components/ServicesSection.astro";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+// Placeholder data for sections - will be replaced by components later
+const pageTitle = "Home | Graphic Designer Portfolio";
+const pageDescription =
+  "Welcome to the portfolio of a passionate graphic designer. Discover projects in branding, packaging, illustration, and more.";
 ---
 
-<Layout>
-	<Welcome />
+<Layout title={pageTitle} description={pageDescription}>
+  <HeroSection />
+
+  {/* The ProjectGrid component includes its own container and title */}
+  <ProjectGrid />
+
+  {/* Intermediate CTA Banner */}
+  <CtaBanner />
+
+  <ServicesSection />
 </Layout>
+
+<style>
+  /* Page-specific styles can go here */
+  h1 {
+    margin-bottom: 1rem;
+    font-size: 2.5rem; /* Example size */
+  }
+  .container > p {
+    margin-bottom: 0.5rem;
+  }
+  .container ul {
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+  }
+</style>
