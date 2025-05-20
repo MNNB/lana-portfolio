@@ -47,7 +47,77 @@ const placeholderProjects: ProjectCardProps[] = [
     projectUrl: "/projects/fresh-salade-co",
     aspectRatio: "0.78",
   },
-  // Add more placeholder projects as needed to test the grid
+  {
+    title: "Candeus",
+    categories: ["Branding"],
+    thumbnailUrl: "/thumbnails/Candeus_F.png", // Chemin corrigé
+    projectUrl: "/projects/fresh-salade-co",
+    aspectRatio: "0.78",
+  },
+  {
+    title: "Lululemon in-store painting",
+    categories: ["Illustration"],
+    thumbnailUrl: "/thumbnails/Lululemon_F.png", // chemin corrigé
+    projectUrl: "/projects/fresh-salade-co",
+    aspectRatio: "0.78",
+  },
+  {
+    title: "Primevere actif végétal",
+    categories: ["Packaging design"],
+    thumbnailUrl: "/thumbnails/ActifVegetal_F.png", // Chemin corrigé
+    projectUrl: "/projects/fresh-salade-co",
+    aspectRatio: "0.78",
+  },
+  {
+    title: "Beautiful scenery",
+    categories: ["Packaging design"],
+    thumbnailUrl: "/thumbnails/BS_F.png", // Chemin corrigé
+    projectUrl: "/projects/fresh-salade-co",
+    aspectRatio: "0.78",
+  },
+  {
+    title: "Remix project by Gap",
+    categories: ["Art direction"],
+    thumbnailUrl: "/thumbnails/Remix_F.png", // Chemin corrigé
+    projectUrl: "/projects/fresh-salade-co",
+    aspectRatio: "0.78",
+  },
+  {
+    title: "Supei",
+    categories: ["Branding", "Packaging design"],
+    thumbnailUrl: "/thumbnails/Supei_F.png", // Chemin corrigé
+    projectUrl: "/projects/fresh-salade-co",
+    aspectRatio: "0.78",
+  },
+  {
+    title: "Johnny Walker limited edition",
+    categories: ["Illustration"],
+    thumbnailUrl: "/thumbnails/JW_F.png", // Chemin corrigé
+    projectUrl: "/projects/fresh-salade-co",
+    aspectRatio: "0.78",
+  },
+  {
+    title: "Project collaboration - Future brand",
+    categories: ["Packaging design"],
+    thumbnailUrl: "/thumbnails/FutureBrand_F.png", // Chemin corrigé
+    projectUrl: "/projects/fresh-salade-co",
+    aspectRatio: "0.78",
+  },
+  {
+    title: "Mamia baby snacks",
+    categories: ["Packaging design"],
+    thumbnailUrl: "/thumbnails/MamiaSnacks_F.png", // Chemin corrigé
+    projectUrl: "/projects/fresh-salade-co",
+    aspectRatio: "0.78",
+  },
+  {
+    title: "La Cantine",
+    categories: ["Motion design"],
+    thumbnailUrl: "/thumbnails/LaCantine_F.png", // Chemin corrigé
+    projectUrl: "/projects/fresh-salade-co",
+    aspectRatio: "0.78",
+  },
+  // add more placeholder projects as needed to test the grid
 ];
 
 export interface Props {
@@ -93,11 +163,11 @@ const { projects = placeholderProjects } = Astro.props;
 
 <style>
   .project-grid-section {
-    padding: calc(var(--spacing-unit, 8px) * 6) 0; /* Example: 48px padding */
+    /* padding: calc(var(--spacing-unit, 8px) * 6) 0; Example: 48px padding */
   }
 
   .section-title {
-    font-family: var(--font-family-heading);
+    font-family: var(--font-family-main);
     font-size: clamp(1.8rem, 4vw, 2.5rem);
     text-align: center; /* Or left, depending on design */
     margin-bottom: calc(var(--spacing-unit, 8px) * 4); /* Example: 32px */
@@ -140,7 +210,7 @@ const { projects = placeholderProjects } = Astro.props;
   }
 
   .category-filter {
-    font-family: "Monument Grotesk", sans-serif;
+    font-family: "Monument Grotesk", sans-serif; 
     font-size: 3rem;
     text-decoration: none;
     color: #cccccc;

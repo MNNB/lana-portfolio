@@ -61,74 +61,60 @@ const { title = "Services", serviceItems = services } = Astro.props;
 <style>
   .services-section {
     padding: calc(var(--spacing-unit, 8px) * 6) 0;
-    background-color: var(--section-bg, #fff); /* Ensure white background */
+    background-color: var(--section-bg, #fff); /* Figma: White background */
   }
-
+  
   .section-title {
-    font-family: var(--font-family-heading);
-    font-size: clamp(1.8rem, 4vw, 2.5rem);
-    text-align: left; /* Align to the left */
-    width: fit-content; /* Ensure border is only under text */
-    border-bottom: 1px solid var(--text-color, #000); /* Line under the title */
-    padding-bottom: calc(
-      var(--spacing-unit, 8px) * 1
-    ); /* Space between text and line */
-    margin-bottom: calc(
-      var(--spacing-unit, 8px) * 6
-    ); /* Space after title and line */
-    color: var(--text-color);
-    text-transform: uppercase; /* As seen in the image */
-    letter-spacing: 0.05em;
+    font-family: "Brawler", var(--font-family-heading); /* Figma: Brawler */
+    font-size: 14px; /* Figma: 14px. Consider if this is too small, Astro was clamp(1.8rem, 4vw, 2.5rem) */
+    text-align: left;
+    width: 100%;
+    border-bottom: 1px solid var(--text-color, #000); /* Figma: Black line */
+    padding-bottom: calc(var(--spacing-unit, 8px) * 1);
+    margin-bottom: calc(var(--spacing-unit, 8px) * 6);
+    color: var(--text-color, #000); /* Assuming black from Figma */
+    text-transform: none; /* Figma data does not show uppercase for the main title */
+    letter-spacing: 0.05em; /* Retained from original, review if needed */
   }
 
   .services-list {
     display: grid;
-    /* Default to 1 column */
     grid-template-columns: 1fr;
-    gap: calc(var(--spacing-unit, 8px) * 4); /* Gap between service items */
-    max-width: 840px;
-    text-align: center;
-    margin: auto;
+    gap: calc(var(--spacing-unit, 8px) * 4);
+    max-width: 75%;
+    text-align: center; /* This centers the grid container if it's narrower than parent */
+    margin: 10rem auto;
   }
 
-  /* Ensure services-list remains single column even on wider screens */
   @media (min-width: var(--breakpoint-md, 768px)) {
     .services-list {
-      grid-template-columns: 1fr; /* Always one column */
+      grid-template-columns: 1fr; /* Still one column as per current logic */
     }
   }
 
   .service-item {
     display: grid;
-    grid-template-columns: clamp(160px, 22%, 220px) auto; /* Title column (left) and Description column (right) */
-    gap: calc(
-      var(--spacing-unit, 8px) * 4
-    ); /* Gap between title and description */
-    align-items: start; /* Align items to the top of their cell */
-    /* border: 1px solid var(--border-color-light, #eee); */
-    /* padding: calc(var(--spacing-unit, 8px) * 2); */
-    /* border-radius: var(--card-border-radius, 8px); */
-    /* No specific card styling in the image, more like text blocks */
+    grid-template-columns: clamp(160px, 22%, 220px) auto; /* Responsive title column width */
+    gap: calc(var(--spacing-unit, 8px) * 4); /* Adjust based on Figma spacing */
+    align-items: start;
+    justify-content: space-between;
     text-align: left;
   }
 
   .service-item-title {
-    font-family: var(
-      --font-family-sans-serif
-    ); /* Use standard sans-serif for a cleaner look */
-    font-size: 1.15rem; /* Slightly smaller for better balance with description */
-    font-weight: 700; /* Bold, as it appears in the image */
-    margin-bottom: calc(
-      var(--spacing-unit, 8px) * 0.5
-    ); /* Adjust margin for potentially wrapped titles */
-    color: var(--text-color);
-    line-height: 1.4; /* Improved line spacing for multi-line titles */
+    font-family: "Monument Grotesk", var(--font-family-sans-serif); /* Figma: Monument Grotesk */
+    font-size: 1.25rem; /* Figma: 20px */
+    font-weight: 700; /* Figma: Bold */
+    margin-bottom: calc(var(--spacing-unit, 8px) * 0.5);
+    color: var(--text-color, #000); /* Figma: Black */
+    line-height: 1.2; /* Figma: 24px line height for 20px font */
   }
 
   .service-item-description {
-    font-family: var(--font-family-sans-serif);
-    font-size: 0.95rem;
-    line-height: 1.7;
-    color: var(--secondary-text-color, #555);
+    font-family: "Roboto Mono", var(--font-family-sans-serif); /* Figma: Roboto Mono */
+    font-size: 14px; /* Figma: 14px */
+    line-height: 1.7; /* Figma: 24px line height for 14px font (~1.71) - good match */
+    color: var(--text-color, #000); /* Figma: Black */
+    max-width: 640px;
   }
 </style>

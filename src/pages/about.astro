@@ -5,13 +5,12 @@ import AboutIntroSection from "../components/AboutIntroSection.astro";
 import TimelineSection from "../components/TimelineSection.astro";
 import type { TimelineItem } from "../components/TimelineSection.astro";
 
-const pageTitle = "About | Graphic Designer"; // Figma shows "ABOUT" as the main title
+const pageTitle = "About | Graphic Designer";
 const pageDescription =
   "Learn more about my journey, skills, and design philosophy as a professional graphic designer.";
 
 const experienceItems: TimelineItem[] = [
   {
-    // Mis en premier selon le design
     dateRange: "Oct 2020 - Present",
     title: "Freelance Senior Art Director",
     institution: "Paris",
@@ -19,7 +18,6 @@ const experienceItems: TimelineItem[] = [
       "Working with various clients on branding, packaging, and design projects.",
   },
   {
-    // Mis en second selon le design
     dateRange: "Mai 2024 - January 2025",
     title: "Freelance photo retoucher",
     institution: "Moet Hennessy, Paris",
@@ -147,12 +145,15 @@ const educationItems: TimelineItem[] = [
     </div>
   </div>
 
-  {
-    /* L'ancien ReferencesSection est supprimé car son contenu est maintenant dans la grille */
-  }
+  <div class="download-folio-section container">
+    <a href="/path/to/your/folio.pdf" download class="download-folio-link">
+      Download my folio
+      <span class="arrow-icon">→</span> {/* Simple arrow, replace with SVG if preferred */}
+    </a>
+  </div>
 
   <div class="about-footer-contact container">
-    <p>
+    <p class="concluding-paragraph">
       If you're interested in learning more about my services, discussing
       collaboration or a potential project, or just want to chat about design
       and creativity, I'm here to listen.
@@ -178,110 +179,125 @@ const educationItems: TimelineItem[] = [
   .page-header-container {
     padding-top: calc(var(--spacing-unit, 8px) * 4);
     padding-bottom: calc(var(--spacing-unit, 8px) * 2);
-    text-align: left; /* Or center, depending on overall page style */
+    text-align: left; 
   }
 
   .page-main-title {
-    font-family: var(--font-family-heading);
-    font-size: clamp(3rem, 8vw, 6rem); /* Large, impactful title */
-    font-weight: 700; /* Bold */
-    line-height: 1.1;
-    color: var(--text-color);
-    text-transform: uppercase;
-    margin-bottom: calc(var(--spacing-unit, 8px) * 2);
-    /* Consider letter-spacing if needed from Figma */
+    font-family: "Monument Grotesk", var(--font-family-heading);
+    font-size: 48px; 
+    font-weight: 400; 
+    line-height: 60px; 
+    color: var(--text-color, #000); 
+    text-transform: uppercase; 
+    margin-bottom: calc(var(--spacing-unit, 8px) * 2); 
   }
 
-  /* Placeholder list styling */
   .container > p {
     margin-bottom: 0.5rem;
   }
   .container ul {
-    margin-left: 1.5rem; /* Conservé pour le style de liste par défaut si nécessaire ailleurs */
+    margin-left: 1.5rem; 
     margin-bottom: 1rem;
   }
 
   .about-details-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: calc(var(--spacing-unit, 8px) * 4); /* 32px gap */
+    gap: calc(var(--spacing-unit, 8px) * 4);
     margin-top: calc(var(--spacing-unit, 8px) * 6);
     margin-bottom: calc(var(--spacing-unit, 8px) * 6);
   }
 
   @media (min-width: 768px) {
     .about-details-grid {
-      grid-template-columns: 1fr 1fr 0.8fr; /* Ajustez les fractions pour la largeur des colonnes */
-      gap: calc(var(--spacing-unit, 8px) * 5); /* 40px gap */
+      grid-template-columns: 1fr 1fr 0.8fr; 
+      gap: calc(var(--spacing-unit, 8px) * 5); 
     }
   }
 
   .section-subtitle {
-    /* Style pour les titres comme "My design tools" et "Reference" */
-    font-family: var(--font-family-body); /* Ou heading, selon le design */
-    font-size: 1.2rem; /* Ajustez selon le design */
-    font-weight: bold;
-    color: var(--text-color);
-    margin-bottom: calc(var(--spacing-unit, 8px) * 2); /* 16px */
-    text-transform: capitalize; /* "Reference" est capitalisé dans le design */
+    font-family: "Monument Grotesk", var(--font-family-body);
+    font-size: 20px; 
+    font-weight: 700; /* Bold */
+    color: var(--text-color, #000);
+    margin-bottom: calc(var(--spacing-unit, 8px) * 2); 
+    text-transform: none; /* Figma uses natural casing */
   }
 
   .my-design-tools,
   .references-column {
-    padding-top: calc(
-      var(--spacing-unit, 8px) * 0
-    ); /* Ajustez si TimelineSection a un padding-top différent */
+    padding-top: calc(var(--spacing-unit, 8px) * 0);
   }
 
   .my-design-tools ul,
   .references-column ul {
     list-style: none;
     padding-left: 0;
-    margin-left: 0; /* Annule le margin-left global pour les listes dans ce contexte */
+    margin-left: 0; 
   }
 
   .my-design-tools ul li,
   .references-column ul li {
-    font-family: var(--font-family-body);
-    font-size: var(--font-size-small); /* Ou une taille spécifique */
-    color: var(--text-color-offset); /* Ou var(--text-color) */
-    margin-bottom: calc(var(--spacing-unit, 8px) * 0.5); /* 4px */
-    line-height: 1.6;
+    font-family: "Roboto Mono", var(--font-family-body);
+    font-size: 14px; 
+    color: var(--text-color, #000);
+    margin-bottom: calc(var(--spacing-unit, 8px) * 0.5); 
+    line-height: 24px; 
   }
 
   .my-design-tools {
-    margin-top: calc(
-      var(--spacing-unit, 8px) * 4
-    ); /* Espace entre Education et My design tools */
+    margin-top: calc(var(--spacing-unit, 8px) * 4);
+  }
+
+  .download-folio-section {
+    padding-top: calc(var(--spacing-unit, 8px) * 4);
+    padding-bottom: calc(var(--spacing-unit, 8px) * 4);
+    text-align: left; /* Assuming left alignment from Figma */
+  }
+
+  .download-folio-link {
+    font-family: "Monument Grotesk", var(--font-family-sans-serif); /* Figma: Monument Grotesk */
+    font-size: 20px; /* Figma: 20px */
+    font-weight: 700; /* Figma: Bold */
+    color: var(--text-color, #000); /* Figma: Black */
+    text-decoration: none;
+    display: inline-flex; /* To align text and arrow */
+    align-items: center;
+  }
+
+  .download-folio-link .arrow-icon {
+    margin-left: calc(var(--spacing-unit, 8px) * 1);
   }
 
   .about-footer-contact {
-    border-top: 1px solid var(--border-color, #e0e0e0); /* Ligne de séparation comme dans le design */
+    border-top: 1px solid var(--border-color, #e0e0e0); 
     padding-top: calc(var(--spacing-unit, 8px) * 4);
     padding-bottom: calc(var(--spacing-unit, 8px) * 4);
-    margin-top: calc(var(--spacing-unit, 8px) * 6);
-    text-align: left; /* Le texte est aligné à gauche dans le design */
+    margin-top: calc(var(--spacing-unit, 8px) * 2); 
+    text-align: left; 
   }
 
-  .about-footer-contact p {
-    font-family: var(--font-family-body);
-    font-size: var(--font-size-base);
-    color: var(--text-color);
+  .about-footer-contact .concluding-paragraph { 
+    font-family: "Monument Grotesk", var(--font-family-body);
+    font-size: 20px; 
+    font-weight: 700; 
+    line-height: 24px; 
+    color: var(--text-color, #000); 
     margin-bottom: calc(var(--spacing-unit, 8px) * 3);
-    max-width: 60ch; /* Limite la largeur du paragraphe pour la lisibilité */
+    max-width: 60ch; 
   }
 
   .about-footer-contact .contact-links {
     display: flex;
     flex-wrap: wrap;
-    gap: calc(var(--spacing-unit, 8px) * 2) calc(var(--spacing-unit, 8px) * 4); /* Espacement vertical et horizontal */
-    font-family: var(--font-family-body);
-    font-size: var(--font-size-small);
+    gap: calc(var(--spacing-unit, 8px) * 2) calc(var(--spacing-unit, 8px) * 4); 
+    font-family: "Brawler", var(--font-family-body); /* Figma: Brawler Regular */
+    font-size: 14px; /* Figma: 14px */
   }
 
   .about-footer-contact .contact-links a,
   .about-footer-contact .contact-links span {
-    color: var(--text-color);
+    color: var(--text-color, #000); /* Figma: Black */
     text-decoration: none;
   }
 

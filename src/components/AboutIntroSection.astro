@@ -1,18 +1,19 @@
 ---
 // src/components/AboutIntroSection.astro
 export interface Props {
-  biographyText?: string[]; // Array of paragraphs
-  headshotUrl?: string;
-  headshotAlt?: string;
+  biographyParagraphs?: string[]; // Array of paragraphs
+  profileImageUrl?: string;
+  profileImageAlt?: string;
 }
 
+// Content from Figma node 344:288
+const figmaBiographyText =
+  "Hi, I’m Lanyan Hu, a Senior Art Director and Design Consultant with a Chinese background, currently based in Paris. With a strong focus on branding and packaging, I explore the progressive intersection of both disciplines. I specialize in branding, packaging design, illustration, photo retouching, motion design, and have a growing interest in UI design. I’ve had the opportunity to work with clients across FMCG, culture, and fashion industries from China, Australia, and France. I’m passionate about creating a distinct visual language, grounded in solid design craft, believe that design should convey the brand’s concept and value.";
+
 const {
-  biographyText = [
-    "Hi, I'm Lanyan Hu, a Senior Art Director and Design Consultant with a Chinese background, currently based in Paris. With a strong focus on branding and packaging, I explore the progressive intersection of both disciplines. I specialize in branding, packaging design, illustration, photo retouching, motion design, and have a growing interest in UI design.",
-    "I've had the opportunity to work with clients across FMCG, culture, and fashion industries from China, Australia, and France. I'm passionate about creating a distinct visual language, grounded in solid design craft, believe that design should convey the brand's concept and value."
-  ],
-  headshotUrl = "profile/ProfilPhoto.png", 
-  headshotAlt = "Lanyan Hu - Senior Art Director"
+  biographyParagraphs = [figmaBiographyText], // Default to the single block from Figma
+  profileImageUrl = "/profile/profil pic_animation.gif", // Updated to your GIF
+  profileImageAlt = "Lanyan Hu - Senior Art Director",
 } = Astro.props;
 ---
 
@@ -20,10 +21,10 @@ const {
   <div class="container">
     <div class="intro-content-wrapper">
       <div class="biography-text-wrapper">
-        {biographyText.map(paragraph => <p>{paragraph}</p>)}
+        {biographyParagraphs.map((paragraph) => <p>{paragraph}</p>)}
       </div>
       <div class="headshot-container">
-        <img src={headshotUrl} alt={headshotAlt} class="headshot-image" />
+        <img src={profileImageUrl} alt={profileImageAlt} class="headshot-image" />
       </div>
     </div>
   </div>
@@ -31,64 +32,65 @@ const {
 
 <style>
   .about-intro-section {
-    padding: calc(var(--spacing-unit, 8px) * 4) 0; /* Adjust padding as needed */
+    padding: calc(var(--spacing-unit, 8px) * 4) 0;
   }
 
   .intro-content-wrapper {
     display: flex;
-    flex-direction: row; /* Stack on mobile */
-    gap: calc(var(--spacing-unit, 8px) * 4);
-    align-items: center; /* Center items horizontally on mobile */
+    flex-direction: column; /* Stack on mobile first: Image then Text */
+    gap: calc(var(--spacing-unit, 8px) * 3); /* gap between image and text */
+    align-items: center; 
   }
 
   .biography-text-wrapper {
-    /* Takes full width by default in column flex */
+    order: 2; /* Text comes after image on mobile */
+    width: 100%; /* Full width for text on mobile */
   }
-
+  
   .headshot-container {
-    order: -1; /* Image appears before text */
-    text-align: center; /* Center headshot on mobile */
-  }
-
-  @media (min-width: var(--breakpoint-md, 768px)) {
-    .intro-content-wrapper {
-      flex-direction: column; /* Side-by-side on desktop */
-      align-items: center; /* Vertically align items to center */
-    }
-
-    .biography-text-wrapper {
-      flex: 1; /* Text takes 1/3 of space */
-    }
-
-    .headshot-container {
-      flex: 2; /* Image takes 2/3 of space */
-      text-align: left; /* Align image to start on larger screens */
-    }
+    order: 1; /* Image appears first on mobile */
+    text-align: center; 
   }
 
   .headshot-image {
-    max-width: 300px; /* Control max size of headshot */
-    width: 100%;
-    height: auto;
-    border-radius: 50%; /* Circular headshot as often seen, adjust if Figma is different */
-    object-fit: cover;
-    border: 3px solid var(--border-color-light, #eee); /* Optional subtle border */
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    width: 264px;  /* Figma: width 264px */
+    height: 264px; /* Figma: height 264px */
+    border-radius: 50%; /* Circular mask */
+    object-fit: cover; /* Ensure GIF covers the area well */
   }
 
-  /* The following media query block was removed as it was malformed and redundant.
-     The intended styles for .headshot-container text-align: left on larger screens
-     are already correctly handled in the media query block above. */
-
   .biography-text-wrapper p {
-    font-family: var(--font-family-sans-serif);
-    font-size: 1rem; /* Adjust based on Figma */
-    line-height: 1.8; /* Generous line height for readability */
-    color: var(--text-color);
-    margin-bottom: calc(var(--spacing-unit, 8px) * 2);
+    font-family: "Monument Grotesk", var(--font-family-sans-serif); /* Figma: Monument Grotesk */
+    font-weight: 700; /* Figma: Bold */
+    font-size: 20px;  /* Figma: 20px */
+    line-height: 24px; /* Figma: 24px */
+    color: var(--text-color, #000); /* Figma: Black */
+    margin-bottom: calc(var(--spacing-unit, 8px) * 2); /* Space between paragraphs if multiple */
   }
 
   .biography-text-wrapper p:last-child {
     margin-bottom: 0;
+  }
+
+  @media (min-width: var(--breakpoint-md, 768px)) {
+    .intro-content-wrapper {
+      flex-direction: row; /* Side-by-side on desktop */
+      align-items: flex-start; /* Align items to the top */
+      gap: calc(var(--spacing-unit, 8px) * 6); /* Increased gap for desktop */
+    }
+
+    .biography-text-wrapper {
+      flex-basis: 65%; /* Text takes more space, adjust as needed */
+      order: 1; /* Text on the left */
+      text-align: left;
+    }
+
+    .headshot-container {
+      flex-basis: 35%; /* Image takes less space */
+      order: 2; /* Image on the right */
+      display: flex; 
+      justify-content: center; /* Center image within its flex container */
+      align-items: flex-start;
+    }
   }
 </style>

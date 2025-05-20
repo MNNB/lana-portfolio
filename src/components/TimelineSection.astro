@@ -13,7 +13,6 @@ export interface Props {
   items: TimelineItem[];
 }
 
-// No default items here, they should be passed from the page
 const { sectionTitle, items } = Astro.props;
 ---
 
@@ -40,27 +39,32 @@ const { sectionTitle, items } = Astro.props;
 <style>
   .timeline-section {
     padding: calc(var(--spacing-unit, 8px) * 4) 0;
+    /* Removed top padding as about.astro grid handles spacing before this section */
+    /* The first TimelineSection (Experiences) will have its natural top padding */
+    /* The second (Education) might need margin-top if used directly after another block, */
+    /* but in about.astro, it's in a grid column, further spacing controlled by grid gap */
   }
 
-  .section-title {
-    font-family: var(--font-family-heading);
-    font-size: clamp(1.8rem, 4vw, 2.5rem);
-    text-align: left; /* Matches Skills section title alignment */
-    margin-bottom: calc(var(--spacing-unit, 8px) * 4);
-    color: var(--text-color);
-    /* text-transform: uppercase; Handled in template */
+  .section-title { /* For "EXPERIENCES", "EDUCATION / PROFESSIONAL TRAINING" */
+    font-family: "Monument Grotesk", var(--font-family-heading);
+    font-size: 20px; /* Figma: 20px */
+    font-weight: 700; /* Figma: Bold */
+    text-align: left; 
+    margin-bottom: calc(var(--spacing-unit, 8px) * 3); /* Consistent with Figma node 344:289 -> 344:291 spacing example*/
+    color: var(--text-color, #000);
+    /* text-transform: uppercase; already handled in template */
   }
 
   .timeline-list {
     display: grid;
-    gap: calc(var(--spacing-unit, 8px) * 4); /* Space between timeline entries */
+    gap: calc(var(--spacing-unit, 8px) * 3); /* Space between timeline entries, Figma implies ~24-30px */
   }
 
   .timeline-item {
     display: grid;
-    gap: calc(var(--spacing-unit, 8px) * 2);
-    padding-bottom: calc(var(--spacing-unit, 8px) * 2);
-    border-bottom: 1px solid var(--border-color-light, #eee); /* Separator for items */
+    gap: calc(var(--spacing-unit, 8px) * 2); /* 16px, adjust as needed */
+    padding-bottom: calc(var(--spacing-unit, 8px) * 3); /* Space before border */
+    border-bottom: 1px solid var(--border-color-light, #eee); 
   }
   
   .timeline-item:last-child {
@@ -70,43 +74,50 @@ const { sectionTitle, items } = Astro.props;
 
   @media (min-width: var(--breakpoint-sm, 576px)) {
     .timeline-item {
-      grid-template-columns: 1fr 3fr; /* Date | Content */
+      /* Date column (e.g., 120px), Content column (takes rest) */
+      grid-template-columns: 120px auto; 
       align-items: start;
+      gap: calc(var(--spacing-unit, 8px) * 3); /* ~24px according to figma example */
     }
   }
 
   .timeline-item-date {
-    font-family: var(--font-family-sans-serif);
-    font-size: 0.9rem;
-    font-weight: 600; /* Make date stand out a bit */
-    color: var(--secondary-text-color, #555);
-    padding-top: calc(var(--spacing-unit, 8px) * 0.25); /* Align with title baseline better */
+    font-family: "Roboto Mono", var(--font-family-sans-serif);
+    font-size: 14px; /* Figma: 14px */
+    font-weight: 400; /* Figma: Regular */
+    color: var(--text-color, #000); /* Figma: Black */
+    line-height: 24px; /* Figma: 24px */
+    padding-top: 0; /* Align with the very top of the content if possible */
   }
 
   .timeline-item-content {
     /* Container for title, institution, description */
   }
 
-  .timeline-item-title {
-    font-family: var(--font-family-heading);
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin-bottom: calc(var(--spacing-unit, 8px) * 0.5);
-    color: var(--text-color);
+  .timeline-item-title { /* e.g., Job Title or Degree Name */
+    font-family: "Roboto Mono", var(--font-family-heading);
+    font-size: 14px; /* Figma: 14px */
+    font-weight: 700; /* Figma: Bold for titles like "Freelance Senior Art Director" */
+    margin-bottom: calc(var(--spacing-unit, 8px) * 0.25); /* Minimal space if institution follows directly */
+    color: var(--text-color, #000);
+    line-height: 24px; /* Figma: 24px */
   }
 
-  .timeline-item-institution {
-    font-family: var(--font-family-sans-serif);
-    font-size: 1rem;
-    font-style: italic; /* Common for institution names */
-    color: var(--text-color);
-    margin-bottom: calc(var(--spacing-unit, 8px) * 0.75);
+  .timeline-item-institution { /* e.g., Company or University */
+    font-family: "Roboto Mono", var(--font-family-sans-serif);
+    font-size: 14px; /* Figma: 14px */
+    font-style: normal; /* Figma: No italics */
+    font-weight: 400; /* Figma: Regular */
+    color: var(--text-color, #000);
+    margin-bottom: calc(var(--spacing-unit, 8px) * 0.5); /* Space before description */
+    line-height: 24px; /* Figma: 24px */
   }
 
   .timeline-item-description {
-    font-family: var(--font-family-sans-serif);
-    font-size: 0.9rem;
-    line-height: 1.6;
-    color: var(--secondary-text-color, #555);
+    font-family: "Roboto Mono", var(--font-family-sans-serif);
+    font-size: 14px; /* Figma: 14px */
+    font-weight: 400; /* Figma: Regular */
+    line-height: 24px; /* Figma: 24px */
+    color: var(--text-color, #000); /* Figma: Black */
   }
 </style>
